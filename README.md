@@ -8,14 +8,14 @@ The application follows a modern **Microservices-ready** architecture with a dec
 
 ## 📸 User Interface
 
-### Login Page
-![Login Page](./screenshots/login-page.png)
+### ADMIN page
+![Login Page](./screenshots(PROJECT)/ADMIN-page.png)
 
-### Admin Dashboard (Credit Requests)
-![Dashboard](./screenshots/dashboard.png)
+### RM page
+![Dashboard](./screenshots(PROJECT)/RM-page.png)
 
-### Create Request Form
-![Request Form](./screenshots/create-request.png)
+### ANALYST page
+![Request Form](./screenshots(PROJECT)/ANALYST-page.png)
 
 ---
 
