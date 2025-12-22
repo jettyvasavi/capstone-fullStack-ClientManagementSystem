@@ -58,7 +58,7 @@ The application follows a modern **Microservices-ready** architecture with a dec
 * **Build Tool:** Maven
 
 ### Database
-* **Database:** MySQL (Production) / H2 (Dev/Test)
+* **Database:** MongoDB (Production) / H2 (Dev/Test)
 
 ### DevOps
 * **Containerization:** Docker & Docker Compose
