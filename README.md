@@ -11,8 +11,11 @@ The application follows a modern **Microservices-ready** architecture with a dec
 ### ADMIN page
 ![Login Page](./screenshots(PROJECT)/ADMIN-page.png)
 
-### RM page
+### RM page / MY CLIENTS
 ![Dashboard](./screenshots(PROJECT)/RM-page.png)
+
+### RM page / Credit Requests
+![Dashboard](./screenshots(PROJECT)/CR-page.png)
 
 ### ANALYST page
 ![Request Form](./screenshots(PROJECT)/ANALYST-page.png)
