@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Review Request</h2>
+<mat-dialog-content>
+  <p><strong>Amount:</strong> ${{data.requestAmount | number}}</p>
+  <p><strong>Purpose:</strong> {{data.purpose}}</p>
+
+  <form [formGroup]="form" class="dialog-form">
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Decision</mat-label>
+      <mat-select formControlName="status">
+  <mat-option value="APPROVED">Approve</mat-option> <mat-option value="REJECTED">Reject</mat-option>   </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Remarks</mat-label>
+      <textarea matInput formControlName="remarks" rows="3"></textarea>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">Submit Decision</button>
+</mat-dialog-actions>

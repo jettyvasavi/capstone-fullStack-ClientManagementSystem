@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # 1. MongoDB Database
+  mongo:
+    image: mongo:latest
+    container_name: corp-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: "./Client Management System/Client-Management-System"
+    container_name: corp-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/corp-banking-db
+    depends_on:
+      - mongo
+
+  frontend:
+    build: ./frontend/corp-banking-cms
+    container_name: corp-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:

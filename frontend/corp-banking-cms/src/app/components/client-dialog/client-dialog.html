@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>Onboard New Corporate Client</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="client-form">
+    
+    <h3>Company Details</h3>
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="companyName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Industry</mat-label>
+        <input matInput formControlName="industry">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Address / City</mat-label>
+      <input matInput formControlName="address">
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Annual Turnover ($M)</mat-label>
+        <input matInput type="number" formControlName="annualTurnover">
+      </mat-form-field>
+      
+      <div class="checkbox-container">
+        <mat-checkbox formControlName="documentsSubmitted">KYC Documents Submitted</mat-checkbox>
+      </div>
+    </div>
+
+    <h3>Primary Contact</h3>
+    <div formGroupName="primaryContact">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contact Person Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <div class="row">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone">
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">Onboard Client</button>
+</mat-dialog-actions>

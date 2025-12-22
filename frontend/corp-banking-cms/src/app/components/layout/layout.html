@@ -1,0 +1,54 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>CorpBank CMS</span>
+  <span class="spacer"></span>
+  <span class="welcome">Hello, {{ username }} ({{ role }})</span>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-drawer-container class="app-container">
+  <mat-drawer #drawer mode="side" opened="true">
+    <mat-nav-list>
+      
+      <ng-container *ngIf="role === 'ADMIN'">
+        <a mat-list-item routerLink="/admin" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>Dashboard</span>
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="role === 'RM'">
+        <a mat-list-item routerLink="/rm" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>Dashboard</span>
+        </a>
+        <a mat-list-item routerLink="/rm/clients" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>business</mat-icon>
+          <span matListItemTitle>My Clients</span>
+        </a>
+        <a mat-list-item routerLink="/rm/credit-requests" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>request_quote</mat-icon>
+          <span matListItemTitle>Credit Requests</span>
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="role === 'ANALYST'">
+        <a mat-list-item routerLink="/analyst" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>Dashboard</span>
+        </a>
+      </ng-container>
+
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

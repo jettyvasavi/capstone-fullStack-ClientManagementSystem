@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Create Credit Request</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Select Client</mat-label>
+      <mat-select formControlName="clientId">
+        <mat-option *ngFor="let client of myClients" [value]="client.id">
+          {{ client.companyName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Loan Amount</mat-label>
+      <input matInput type="number" formControlName="requestAmount">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Tenure (Months)</mat-label>
+      <input matInput type="number" formControlName="tenureMonths">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Purpose</mat-label>
+      <textarea matInput formControlName="purpose"></textarea>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">Submit Request</button>
+</mat-dialog-actions>

@@ -1,0 +1,43 @@
+<div class="header-container">
+  <h1>Credit Requests Review</h1>
+</div>
+
+<table mat-table [dataSource]="requests" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="client">
+    <th mat-header-cell *matHeaderCellDef> Client ID </th>
+    <td mat-cell *matCellDef="let req"> {{req.clientId}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef> Amount </th>
+    <td mat-cell *matCellDef="let req"> ${{req.requestAmount | number}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tenure">
+    <th mat-header-cell *matHeaderCellDef> Tenure </th>
+    <td mat-cell *matCellDef="let req"> {{req.tenureMonths}} M </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let req">
+      <mat-chip [style.background-color]="req.status === 'PENDING' ? 'orange' : (req.status === 'APPROVED' ? 'lightgreen' : 'pink')">
+  {{req.status}}
+</mat-chip>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let req">
+      <button mat-stroked-button color="primary" 
+        (click)="openReviewDialog(req)" 
+        [disabled]="req.status.toUpperCase() !== 'PENDING'"> <mat-icon>rate_review</mat-icon> Review
+</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
