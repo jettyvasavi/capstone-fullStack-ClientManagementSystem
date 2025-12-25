@@ -16,12 +16,11 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Check if Admin exists. If not, create one.
         if (!userRepository.existsByUsername("admin")) {
             User admin = new User();
             admin.setUsername("admin");
             admin.setEmail("admin@corpbank.com");
-            admin.setPassword(encoder.encode("admin123")); // Default Password
+            admin.setPassword(encoder.encode("admin123"));
             admin.setRole(Role.ADMIN);
             admin.setActive(true);
 

@@ -9,9 +9,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   if (token) {
-    console.log('✅ Interceptor: Attaching Token!', token.substring(0, 10) + '...');
+    console.log(' Interceptor: Attaching Token!', token.substring(0, 10) + '...');
   } else {
-    console.warn('⚠️ Interceptor: No Token Found in Storage!');
+    console.warn(' Interceptor: No Token Found in Storage!');
   }
 
   if (token) {
