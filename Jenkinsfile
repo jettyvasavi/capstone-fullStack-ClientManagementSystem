@@ -19,7 +19,7 @@ pipeline {
         stage('Build Backend Image') {
             steps {
                 // Escape spaces in folder names
-                dir('Client Management System/Client-Management-System') {
+                dir('ClientManagementSystem/Client-Management-System') {
                     sh 'docker build -t $DOCKERHUB_USER/$BACKEND_IMAGE:latest .'
                 }
             }
