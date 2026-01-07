@@ -15,10 +15,8 @@ public class Client {
     private String address;
     private Double annualTurnover;
 
-    // We store the ID of the RM who owns this client
     private String rmId;
 
-    // Embedded Contact Details
     private Contact primaryContact;
 
     private boolean documentsSubmitted = false;

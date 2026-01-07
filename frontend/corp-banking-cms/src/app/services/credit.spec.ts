@@ -16,7 +16,7 @@ describe('CreditService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); // Ensure no unfinished requests
+    httpMock.verify();
   });
 
   it('should be created', () => {
@@ -34,7 +34,6 @@ describe('CreditService', () => {
       expect(requests).toEqual(dummyRequests);
     });
 
-    // Matches 'const API_URL' in your service
     const req = httpMock.expectOne('/api/credit-requests');
     expect(req.request.method).toBe('GET');
     req.flush(dummyRequests);
@@ -43,7 +42,6 @@ describe('CreditService', () => {
   it('should create a request via POST', () => {
     const newRequest = { amount: 5000, tenure: 12 };
 
-    // ✅ FIXED: Changed 'requestCredit' to 'createRequest' to match your Service
     service.createRequest(newRequest).subscribe((response: any) => {
       expect(response).toBeTruthy();
     });
@@ -52,7 +50,6 @@ describe('CreditService', () => {
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(newRequest);
 
-    // Simulating a text response since your service uses responseType: 'text'
     req.flush('Request Created Successfully');
   });
 });

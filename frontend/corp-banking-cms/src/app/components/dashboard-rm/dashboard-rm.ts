@@ -24,10 +24,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './dashboard-rm.css'
 })
 export class DashboardRmComponent implements OnInit {
-  displayedColumns: string[] = ['companyName', 'industry', 'city', 'contact', 'turnover'];
-  clients: any[] = [];
+displayedColumns: string[] = ['companyName', 'industry', 'city', 'contact', 'turnover', 'actions'];
+clients: any[] = [];
 
-  constructor(
+constructor(
     private clientService: ClientService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -48,15 +48,27 @@ export class DashboardRmComponent implements OnInit {
     });
   }
 
-  openOnboardDialog(): void {
+openOnboardDialog(): void {
     const dialogRef = this.dialog.open(ClientDialogComponent, {
-      width: '600px'
+      width: '600px',
+      data: null
     });
+    this.handleDialogClose(dialogRef, 'Client onboarded successfully!');
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
+  openEditDialog(client: any): void {
+    const dialogRef = this.dialog.open(ClientDialogComponent, {
+      width: '600px',
+      data: client
+    });
+    this.handleDialogClose(dialogRef, 'Client updated successfully!');
+  }
+
+  private handleDialogClose(dialogRef: any, successMessage: string) {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         this.loadClients();
-        this.snackBar.open('Client onboarded successfully!', 'Close', { duration: 3000 });
+        this.snackBar.open(successMessage, 'Close', { duration: 3000 });
       }
     });
   }

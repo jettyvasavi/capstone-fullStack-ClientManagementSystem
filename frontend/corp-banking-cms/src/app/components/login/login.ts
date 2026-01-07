@@ -37,14 +37,14 @@ export class LoginComponent {
         next: (data) => {
           this.storageService.saveToken(data.token);
           this.storageService.saveUser(data);
-          
+
           const role = data.role;
           if (role === 'ADMIN') this.router.navigate(['/admin']);
           else if (role === 'RM') this.router.navigate(['/rm']);
           else if (role === 'ANALYST') this.router.navigate(['/analyst']);
         },
         error: (err) => {
-          this.errorMessage = 'Invalid username or password';
+          this.errorMessage = err?.error || 'Login failed';
         }
       });
     }

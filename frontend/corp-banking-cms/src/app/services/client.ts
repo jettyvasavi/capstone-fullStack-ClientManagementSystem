@@ -16,4 +16,7 @@ export class ClientService {
   onboardClient(clientData: any): Observable<any> {
     return this.http.post(RM_API_URL, clientData, { responseType: 'text' as 'json' });
   }
+  updateClient(id: string, data: any): Observable<any> {
+    return this.http.put(`${API_URL}/${id}`, data);
+  }
 }

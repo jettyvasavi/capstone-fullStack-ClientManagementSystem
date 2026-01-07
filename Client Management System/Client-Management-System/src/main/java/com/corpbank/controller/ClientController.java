@@ -17,15 +17,12 @@ public class ClientController {
 
     @Autowired private ClientService clientService;
 
-    // Create Client
     @PostMapping("/api/rm/clients")
     @PreAuthorize("hasRole('RM')")
     public ResponseEntity<Client> createClient(@Valid @RequestBody ClientRequest request) {
         return ResponseEntity.ok(clientService.createClient(request));
     }
 
-    // Get All Clients
-    // Requirement: /api/clients?name=ABC
     @GetMapping("/api/clients")
     @PreAuthorize("hasAnyRole('RM', 'ANALYST')")
     public ResponseEntity<List<Client>> getClients(@RequestParam(required = false) String name) {
@@ -35,14 +32,12 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getMyClients());
     }
 
-    // Get Single Client
     @GetMapping("/api/clients/{id}")
     @PreAuthorize("hasAnyRole('RM', 'ANALYST')")
     public ResponseEntity<Client> getClient(@PathVariable String id) {
         return ResponseEntity.ok(clientService.getClientById(id));
     }
 
-    // Update Client
     @PutMapping("/api/clients/{id}")
     @PreAuthorize("hasRole('RM')")
     public ResponseEntity<Client> updateClient(@PathVariable String id, @Valid @RequestBody ClientRequest request) {

@@ -19,7 +19,6 @@ public class UserController {
 
     @GetMapping("/me")
     public User getCurrentUser() {
-        // Get the username from the Security Context (set by the JWT Filter)
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
 

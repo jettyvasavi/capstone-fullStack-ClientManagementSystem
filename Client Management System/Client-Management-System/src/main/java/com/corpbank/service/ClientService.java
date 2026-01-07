@@ -31,7 +31,6 @@ public class ClientService {
         client.setAddress(request.getAddress());
         client.setAnnualTurnover(request.getAnnualTurnover());
         client.setPrimaryContact(request.getPrimaryContact());
-        // Auto-assign RM
         client.setRmId(getCurrentUserId());
         client.setDocumentsSubmitted(true);
 
@@ -55,8 +54,6 @@ public class ClientService {
     public Client updateClient(String id, ClientRequest request) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Client not found"));
-
-        // Security Check: Ensure the logged-in RM owns this client
         if (!client.getRmId().equals(getCurrentUserId())) {
             throw new RuntimeException("Access Denied: You cannot edit this client.");
         }

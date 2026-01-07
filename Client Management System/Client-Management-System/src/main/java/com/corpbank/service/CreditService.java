@@ -36,7 +36,6 @@ public class CreditService {
         return creditRepository.save(req);
     }
 
-    // Get Requests
     public List<CreditRequest> getRequests() {
         User user = getCurrentUser();
         if (user.getRole().name().equals("RM")) {

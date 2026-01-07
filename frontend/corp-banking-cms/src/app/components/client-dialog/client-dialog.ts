@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClientService } from '../../services/client';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,13 +23,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   templateUrl: './client-dialog.html',
   styleUrl: './client-dialog.css'
 })
-export class ClientDialogComponent {
+export class ClientDialogComponent implements OnInit {
   form: FormGroup;
+  isEditMode: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private clientService: ClientService,
-    private dialogRef: MatDialogRef<ClientDialogComponent>
+    private dialogRef: MatDialogRef<ClientDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.form = this.fb.group({
       companyName: ['', Validators.required],
@@ -45,12 +47,26 @@ export class ClientDialogComponent {
     });
   }
 
+  ngOnInit(): void {
+    if (this.data) {
+      this.isEditMode = true;
+      this.form.patchValue(this.data); 
+    }
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
-      this.clientService.onboardClient(this.form.value).subscribe({
-        next: () => this.dialogRef.close(true),
-        error: (err) => alert('Failed to onboard client')
-      });
+      if (this.isEditMode) {
+        this.clientService.updateClient(this.data.id, this.form.value).subscribe({
+          next: () => this.dialogRef.close(true),
+          error: (err) => alert('Failed to update client')
+        });
+      } else {
+        this.clientService.onboardClient(this.form.value).subscribe({
+          next: () => this.dialogRef.close(true),
+          error: (err) => alert('Failed to onboard client')
+        });
+      }
     }
   }
 }

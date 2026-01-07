@@ -1,7 +1,8 @@
-<h2 mat-dialog-title>Onboard New Corporate Client</h2>
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit' : 'Onboard New' }} Corporate Client</h2>
+
 <mat-dialog-content>
   <form [formGroup]="form" class="client-form">
-    
+
     <h3>Company Details</h3>
     <div class="row">
       <mat-form-field appearance="outline" class="half-width">
@@ -25,7 +26,7 @@
         <mat-label>Annual Turnover ($M)</mat-label>
         <input matInput type="number" formControlName="annualTurnover">
       </mat-form-field>
-      
+
       <div class="checkbox-container">
         <mat-checkbox formControlName="documentsSubmitted">KYC Documents Submitted</mat-checkbox>
       </div>
@@ -53,7 +54,11 @@
 
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">Onboard Client</button>
+
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">
+    {{ isEditMode ? 'Update Client' : 'Onboard Client' }}
+  </button>
 </mat-dialog-actions>

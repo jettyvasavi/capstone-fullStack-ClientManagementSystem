@@ -41,7 +41,7 @@ export class UserDialogComponent {
   onSubmit(): void {
     if (this.form.valid) {
       this.adminService.createUser(this.form.value).subscribe({
-        next: () => this.dialogRef.close(true), // Close and signal success
+        next: () => this.dialogRef.close(true),
         error: (err) => alert('Failed to create user')
       });
     }
