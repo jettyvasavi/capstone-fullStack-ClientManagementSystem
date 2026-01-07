@@ -12,14 +12,15 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-org/your-repo.git'
+                git 'https://github.com/jettyvasavi/capstone-fullStack-ClientManagementSystem.git'
             }
         }
 
         stage('Build Backend Image') {
             steps {
+                // Escape spaces in folder names
                 dir('Client Management System/Client-Management-System') {
-                    sh 'docker build -t jettyvasavi/corp-backend:latest .'
+                    sh 'docker build -t $DOCKERHUB_USER/$BACKEND_IMAGE:latest .'
                 }
             }
         }
@@ -27,7 +28,7 @@ pipeline {
         stage('Build Frontend Image') {
             steps {
                 dir('frontend/corp-banking-cms') {
-                    sh 'docker build -t jettyvasavi/corp-frontend:latest .'
+                    sh 'docker build -t $DOCKERHUB_USER/$FRONTEND_IMAGE:latest .'
                 }
             }
         }
@@ -40,9 +41,9 @@ pipeline {
                     passwordVariable: 'PASS'
                 )]) {
                     sh '''
-                    echo $PASS | docker login -u $USER --password-stdin
-                    docker push jettyvasavi/corp-backend:latest
-                    docker push jettyvasavi/corp-frontend:latest
+                        echo $PASS | docker login -u $USER --password-stdin
+                        docker push $DOCKERHUB_USER/$BACKEND_IMAGE:latest
+                        docker push $DOCKERHUB_USER/$FRONTEND_IMAGE:latest
                     '''
                 }
             }
@@ -51,15 +52,16 @@ pipeline {
         stage('Deploy on EC2') {
             steps {
                 sshagent(['ec2-key']) {
-                    sh '''
-                    ssh ubuntu@$EC2_IP "
-                      cd /home/ubuntu &&
-                      docker-compose pull &&
-                      docker-compose up -d
-                    "
-                    '''
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ubuntu@$EC2_IP '
+                            cd /home/ubuntu &&
+                            docker-compose pull &&
+                            docker-compose up -d
+                        '
+                    """
                 }
             }
         }
     }
 }
+
